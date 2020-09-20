@@ -1,0 +1,14 @@
+/node_modules/*
+/node_modules
+/build/*
+/.grunt/*
+/cov/*
+
+_SpecRunner.html
+/dist
+/.vscode
+
+.todo
+*.swp
+.idea
+.DS_Store
