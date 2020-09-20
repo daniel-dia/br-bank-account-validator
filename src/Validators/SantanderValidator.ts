@@ -6,7 +6,7 @@ export default class SantanderValidator extends CommonBankAccountValidator {
   }
 
   public accountNumberIsValid(accountNumber: string) {
-    return accountNumber.length == this.accountNumberLength() && super.accountNumberIsValid(accountNumber);
+    return accountNumber.length === this.accountNumberLength() && super.accountNumberIsValid(accountNumber);
   }
 
   public accountNumberLength() {

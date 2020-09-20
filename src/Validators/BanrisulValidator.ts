@@ -8,11 +8,11 @@ export default class BanrisulValidator extends CommonBankAccountValidator {
   }
 
   public accountNumberIsValid(accountNumber: string) {
-    return accountNumber.length == this.accountNumberLength() && super.accountNumberIsValid(accountNumber);
+    return accountNumber.length === this.accountNumberLength() && super.accountNumberIsValid(accountNumber);
   }
 
   public accountCheckNumberMatch(bankAccount: IBankAccount) {
-    var checkNumberCalculated = BanrisulCheckNumberCalculator.calculate(bankAccount.accountNumber);
+    const checkNumberCalculated = BanrisulCheckNumberCalculator.calculate(bankAccount.accountNumber);
     return checkNumberCalculated === bankAccount.accountCheckNumber;
   }
 

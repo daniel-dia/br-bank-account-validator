@@ -6,7 +6,7 @@ export default class HSBCValidator extends CommonBankAccountValidator {
   }
 
   public accountNumberIsValid(accountNumber: string): boolean {
-    return accountNumber.length == this.accountNumberLength() && super.accountNumberIsValid(accountNumber);
+    return accountNumber.length === this.accountNumberLength() && super.accountNumberIsValid(accountNumber);
   }
 
   public accountCheckNumberIsValid(accountCheckNumber: string): boolean {

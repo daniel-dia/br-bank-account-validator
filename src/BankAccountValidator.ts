@@ -11,8 +11,8 @@ import IBankAccount from "./Interfaces/IBankAccount";
 
 export default class BankAccountValidator {
   public static validate(params: IBankAccount) {
-    var errors = [];
-    var validator = this.validator(params.bankNumber);
+    const errors = [];
+    const validator = this.validator(params.bankNumber);
 
     if (!new GenericBankAccountValidator().bankNumberIsValid(params.bankNumber)) {
       errors.push({ description: "Banco inválido", code: "INVALID_BANK_NUMBER" });
@@ -49,7 +49,7 @@ export default class BankAccountValidator {
     if (errors.length === 0) {
       params.valid();
     } else {
-      params.invalid({ errors: errors });
+      params.invalid({ errors });
     }
   }
 

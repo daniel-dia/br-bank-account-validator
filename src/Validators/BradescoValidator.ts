@@ -4,16 +4,16 @@ import { BradescoCheckNumberCalculator } from "./CheckNumber/BradescoCheckNumber
 
 export default class BradescoValidator extends CommonBankAccountValidator {
   public agencyCheckNumberIsValid(agencyCheckNumber: string) {
-    return agencyCheckNumber.length == this.agencyCheckNumberLength() && super.agencyCheckNumberIsValid(agencyCheckNumber);
+    return agencyCheckNumber.length === this.agencyCheckNumberLength() && super.agencyCheckNumberIsValid(agencyCheckNumber);
   }
 
   public accountNumberIsValid(accountNumber: string) {
-    return accountNumber.length == this.accountNumberLength() && super.accountNumberIsValid(accountNumber);
+    return accountNumber.length === this.accountNumberLength() && super.accountNumberIsValid(accountNumber);
   }
 
   public agencyCheckNumberMatch(bankAccount: IBankAccount) {
-    var checkNumberCalculated = BradescoCheckNumberCalculator.calculateAgency(bankAccount.agencyNumber);
-    var checkNumberInformed = bankAccount.agencyCheckNumber.toUpperCase();
+    const checkNumberCalculated = BradescoCheckNumberCalculator.calculateAgency(bankAccount.agencyNumber);
+    const checkNumberInformed = bankAccount.agencyCheckNumber.toUpperCase();
     if (checkNumberInformed === "0") {
       return checkNumberCalculated === checkNumberInformed || checkNumberCalculated === "P";
     }
@@ -21,8 +21,8 @@ export default class BradescoValidator extends CommonBankAccountValidator {
   }
 
   public accountCheckNumberMatch(bankAccount: IBankAccount) {
-    var checkNumberCalculated = BradescoCheckNumberCalculator.calculateAccount(bankAccount.accountNumber);
-    var checkNumberInformed = bankAccount.accountCheckNumber.toUpperCase();
+    const checkNumberCalculated = BradescoCheckNumberCalculator.calculateAccount(bankAccount.accountNumber);
+    const checkNumberInformed = bankAccount.accountCheckNumber.toUpperCase();
     if (checkNumberInformed === "0") {
       return checkNumberCalculated === checkNumberInformed || checkNumberCalculated === "P";
     }

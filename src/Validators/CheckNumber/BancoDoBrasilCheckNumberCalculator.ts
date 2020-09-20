@@ -1,11 +1,11 @@
 export default class BancoDoBrasilCheckNumberCalculator {
   // Account validation
   public static calculateAccount(accountNumber: string) {
-    var numbers = accountNumber.split("");
-    var sumSeq = 0;
-    var sequence = 0;
-    for (var i = 0; i < numbers.length; i++) {
-      let seq = 9 - i;
+    const numbers = accountNumber.split("");
+    let sumSeq = 0;
+    const sequence = 0;
+    for (let i = 0; i < numbers.length; i++) {
+      const seq = 9 - i;
       sumSeq += parseInt(numbers[i]) * seq;
     }
     return this.module(sumSeq);
@@ -13,18 +13,18 @@ export default class BancoDoBrasilCheckNumberCalculator {
 
   // Agency validation
   public static calculateAgency(agencyNumber: string) {
-    var numbers = agencyNumber.split("");
-    var sumSeq = 0;
-    var sequence = 0;
-    for (var i = 0; i < numbers.length; i++) {
-      let seq = 5 - i;
+    const numbers = agencyNumber.split("");
+    let sumSeq = 0;
+    const sequence = 0;
+    for (let i = 0; i < numbers.length; i++) {
+      const seq = 5 - i;
       sumSeq += parseInt(numbers[i]) * seq;
     }
     return this.module(sumSeq);
   }
 
   private static module(sumSeq: number) {
-    var result = 11 - (sumSeq % 11);
+    const result = 11 - (sumSeq % 11);
     if (result === 10) {
       return "X";
     } else {
