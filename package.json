@@ -9,10 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "none"
+    "url": "https://github.com/daniel-dia/br-bank-account-validator.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daniel-dia/br-bank-account-validator.git/issues"
+  },
+  "homepage": "https://github.com/daniel-dia/br-bank-account-validator.git",
   "devDependencies": {
     "@types/jest": "^26.0.14",
     "babel-jest": "^26.3.0",

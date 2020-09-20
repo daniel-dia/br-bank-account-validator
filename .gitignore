@@ -1,6 +1,5 @@
 /node_modules/*
-/node_modules
-/build/*
+/node_modulescl/build/*
 /.grunt/*
 /cov/*
 
