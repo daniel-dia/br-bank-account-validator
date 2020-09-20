@@ -8,10 +8,12 @@ import ItauValidator from "./Validators/ItauValidator";
 import SantanderValidator from "./Validators/SantanderValidator";
 import IBankValidator from "./Interfaces/IBankValidator";
 import IBankAccount from "./Interfaces/IBankAccount";
+import BankAccountValidatorException from "./BankAccountValidatorException";
+import { BankAccountError } from "./BankAccountError";
 
 export default class BankAccountValidator {
-  public static validate(params: IBankAccount) {
-    const errors = [];
+  public static validate(params: IBankAccount): boolean {
+    const errors: BankAccountError[] = [];
     const validator = this.validator(params.bankNumber);
 
     if (!new GenericBankAccountValidator().bankNumberIsValid(params.bankNumber)) {
@@ -46,11 +48,8 @@ export default class BankAccountValidator {
       }
     }
 
-    if (errors.length === 0) {
-      params.valid();
-    } else {
-      params.invalid({ errors });
-    }
+    if (errors.length) throw new BankAccountValidatorException(errors);
+    return true;
   }
 
   private static validator(bankNumber: string): IBankValidator {

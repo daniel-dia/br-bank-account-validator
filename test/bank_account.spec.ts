@@ -28,30 +28,21 @@ describe("BankAccount", function () {
 
   describe(".validate", function () {
     it("accepts a valid bank account", function () {
-      BankAccountValidator.validate(validBankAccountParams);
-      expect(validBankAccountParams.valid).toHaveBeenCalled();
-      expect(validBankAccountParams.invalid).not.toHaveBeenCalled();
+      expect(BankAccountValidator.validate(validBankAccountParams)).toBeTruthy();
     });
 
     it("does NOT accept a invalid bank account", function () {
-      BankAccountValidator.validate(invalidBankAccountParams);
-      expect(invalidBankAccountParams.invalid).toHaveBeenCalled();
-      expect(invalidBankAccountParams.valid).not.toHaveBeenCalled();
+      expect(() => BankAccountValidator.validate(invalidBankAccountParams)).toThrow();
     });
 
     it("accepts a valid bank number", function () {
       validBankAccountParams.bankNumber = "999";
-      BankAccountValidator.validate(validBankAccountParams);
-      expect(validBankAccountParams.valid).toHaveBeenCalled();
-      expect(validBankAccountParams.invalid).not.toHaveBeenCalled();
+      expect(BankAccountValidator.validate(validBankAccountParams)).toBeTruthy();
     });
 
     it("does NOT accept a invalid bank number", function () {
       validBankAccountParams.bankNumber = "1";
-      BankAccountValidator.validate(validBankAccountParams);
-      var expectedParams = { errors: [{ description: "Banco inválido", code: "INVALID_BANK_NUMBER" }] };
-      expect(validBankAccountParams.invalid).toHaveBeenCalledWith(expectedParams);
-      expect(validBankAccountParams.valid).not.toHaveBeenCalled();
+      expect(() => BankAccountValidator.validate(validBankAccountParams)).toThrowError("Banco inválido");
     });
   });
 });

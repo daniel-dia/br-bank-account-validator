@@ -17,52 +17,34 @@ describe("BancoDoBrasilValidator", function () {
 
   describe("validate agency check number", function () {
     it("accepts a valid bank account", function () {
-      BankAccountValidator.validate(validBankAccountParams);
-      expect(validBankAccountParams.valid).toHaveBeenCalled();
+      expect(BankAccountValidator.validate(validBankAccountParams)).toBeTruthy();
     });
 
     it("does NOT accept agency check empty", function () {
       validBankAccountParams.agencyCheckNumber = "";
-      BankAccountValidator.validate(validBankAccountParams);
-      var expectedParams = { errors: [{ description: "O dígito da agência deve conter 1 dígito", code: "INVALID_AGENCY_CHECK_NUMBER" }] };
-      expect(validBankAccountParams.invalid).toHaveBeenCalledWith(expectedParams);
+      expect(() => BankAccountValidator.validate(validBankAccountParams)).toThrowError("O dígito da agência deve conter 1 dígito");
     });
 
     it("does NOT accept agency check greater than one digits", function () {
       validBankAccountParams.agencyCheckNumber = "12";
-      BankAccountValidator.validate(validBankAccountParams);
-      var expectedParams = { errors: [{ description: "O dígito da agência deve conter 1 dígito", code: "INVALID_AGENCY_CHECK_NUMBER" }] };
-      expect(validBankAccountParams.invalid).toHaveBeenCalledWith(expectedParams);
+      expect(() => BankAccountValidator.validate(validBankAccountParams)).toThrow("O dígito da agência deve conter 1 dígito");
     });
 
     it("does NOT accept when calc agency check number invalid", function () {
       validBankAccountParams.agencyCheckNumber = "3";
-      BankAccountValidator.validate(validBankAccountParams);
-      var expectedParams = { errors: [{ description: "Dígito da agência não corresponde ao número da agência preenchido", code: "AGENCY_CHECK_NUMBER_DONT_MATCH" }] };
-      expect(validBankAccountParams.invalid).toHaveBeenCalledWith(expectedParams);
+      expect(() => BankAccountValidator.validate(validBankAccountParams)).toThrow("Dígito da agência não corresponde ao número da agência preenchido");
     });
 
     it("does NOT accept when calc account check number invalid", function () {
       validBankAccountParams.accountCheckNumber = "8";
-      BankAccountValidator.validate(validBankAccountParams);
-      var expectedParams = { errors: [{ description: "Dígito da conta não corresponde ao número da conta/agência preenchido", code: "ACCOUNT_CHECK_NUMBER_DONT_MATCH" }] };
-      expect(validBankAccountParams.invalid).toHaveBeenCalledWith(expectedParams);
+      expect(() => BankAccountValidator.validate(validBankAccountParams)).toThrow("Dígito da conta não corresponde ao número da conta/agência preenchido");
     });
   });
 
   describe("validate agency number", function () {
     it("does NOT accept invalid agency", function () {
       validBankAccountParams.agencyNumber = "123";
-      BankAccountValidator.validate(validBankAccountParams);
-      var expectedParams = {
-        errors: [
-          {
-            description: "A agência deve conter 4 números. Complete com zeros a esquerda se necessário.",
-            code: "INVALID_AGENCY_NUMBER",
-          },
-        ],
-      };
-      expect(validBankAccountParams.invalid).toHaveBeenCalledWith(expectedParams);
+      expect(() => BankAccountValidator.validate(validBankAccountParams)).toThrow("A agência deve conter 4 números. Complete com zeros a esquerda se necessário.");
     });
   });
 });
