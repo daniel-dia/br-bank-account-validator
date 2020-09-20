@@ -1,4 +1,4 @@
 export interface BankAccountError {
-    code: string;
-    description: string;
+  code: string;
+  description: string;
 }
