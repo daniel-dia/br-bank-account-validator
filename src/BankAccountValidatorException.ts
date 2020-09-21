@@ -1,12 +1,11 @@
 import { BankAccountError } from "./BankAccountError";
 
-export default class BankAccountValidatorException {
-  public readonly code: string;
-  private readonly message: string;
+export default class BankAccountValidatorError extends Error {
+  public code: string;
 
   constructor(private readonly errors: BankAccountError[]) {
+    super(errors.map((e) => e.message).join(" "));
     this.code = errors.map((e) => e.code).join(",");
-    this.message = errors.map((e) => e.description).join(" ");
   }
 
   public toString(): string {

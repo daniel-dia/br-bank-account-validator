@@ -1,4 +1,6 @@
+import { BankAccountErrorCodes } from "./BankAccountErrorCodes";
+
 export interface BankAccountError {
-  code: string;
-  description: string;
+  code: BankAccountErrorCodes;
+  message: string;
 }
