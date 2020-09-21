@@ -34,7 +34,7 @@ export default abstract class CommonBankAccountValidator implements IBankValidat
     const length = this.agencyCheckNumberLength();
 
     if (!length) {
-      return "O dígito da agência deve ser vazio";
+      return "Não insira dígito da agência";
     } else if (length === 1) {
       return "O dígito da agência deve conter 1 dígito";
     } else {

@@ -25,7 +25,7 @@ describe("ItauValidator", function () {
   describe("validate agency check number", function () {
     it("does NOT accept agency check number", function () {
       bankAccount.agencyCheckNumber = "1";
-      expect(() => BankAccountValidator.validate(bankAccount)).toThrowError("O dígito da agência deve ser vazio");
+      expect(() => BankAccountValidator.validate(bankAccount)).toThrowError("Não insira dígito da agência");
     });
   });
 

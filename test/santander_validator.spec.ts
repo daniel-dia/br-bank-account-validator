@@ -18,7 +18,7 @@ describe("SantanderValidator", function () {
   describe("validate agency check number", function () {
     it("does NOT accept agency check number", function () {
       validBankAccountParams.agencyCheckNumber = "1";
-      expect(() => BankAccountValidator.validate(validBankAccountParams)).toThrowError("O dígito da agência deve ser vazio");
+      expect(() => BankAccountValidator.validate(validBankAccountParams)).toThrowError("Não insira dígito da agência");
     });
   });
 
