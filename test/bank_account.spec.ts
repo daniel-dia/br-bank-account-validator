@@ -39,10 +39,5 @@ describe("BankAccount", function () {
       validBankAccountParams.bankNumber = "999";
       expect(BankAccountValidator.validate(validBankAccountParams)).toBeTruthy();
     });
-
-    it("does NOT accept a invalid bank number", function () {
-      validBankAccountParams.bankNumber = "1";
-      expect(() => BankAccountValidator.validate(validBankAccountParams)).toThrowError("Banco inválido");
-    });
   });
 });

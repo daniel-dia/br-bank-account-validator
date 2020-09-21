@@ -31,10 +31,10 @@ describe("BradescoValidator", function () {
       expect(BankAccountValidator.validate(validBankAccountParams)).toBeTruthy();
     });
 
-    it("does NOT accept agency check empty", function () {
-      validBankAccountParams.agencyCheckNumber = "";
-      expect(() => BankAccountValidator.validate(validBankAccountParams)).toThrowError("O dígito da agência deve conter 1 dígito");
-    });
+    // it("does NOT accept agency check empty", function () {
+    //   validBankAccountParams.agencyCheckNumber = "";
+    //   expect(() => BankAccountValidator.validate(validBankAccountParams)).toThrowError("O dígito da agência deve conter 1 dígito");
+    // }); THIS RULE IS NO LONGER ACCEPTED
 
     it("does NOT accept agency check greater than one digits", function () {
       validBankAccountParams.agencyCheckNumber = "12";

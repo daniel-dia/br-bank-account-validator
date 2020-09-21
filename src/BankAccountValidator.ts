@@ -11,49 +11,52 @@ import IBankAccount from "./Interfaces/IBankAccount";
 import BankAccountValidatorError from "./BankAccountValidatorException";
 import { BankAccountError } from "./BankAccountError";
 import { BankAccountErrorCodes as BankAccountErrors } from "./BankAccountErrorCodes";
+import CommonBankAccountValidator from "./CommonBankAccountValidator";
 
 export default class BankAccountValidator {
-  public static validate(params: IBankAccount): boolean {
+  public static validate(bankAccount: IBankAccount, normalize: boolean = false): IBankAccount {
     const errors: BankAccountError[] = [];
-    const validator = this.validator(params.bankNumber);
+    const validator = this.validator(bankAccount.bankNumber);
 
-    if (!new GenericBankAccountValidator().bankNumberIsValid(params.bankNumber)) {
+    if (normalize) validator.normalize(bankAccount);
+
+    if (!new GenericBankAccountValidator().bankNumberIsValid(bankAccount.bankNumber)) {
       errors.push({ message: "Banco inválido", code: BankAccountErrors.INVALID_BANK_NUMBER });
     }
 
-    if (!validator.agencyNumberIsValid(params.agencyNumber)) {
+    if (!validator.agencyNumberIsValid(bankAccount.agencyNumber)) {
       errors.push({ message: validator.agencyNumberMsgError(), code: BankAccountErrors.INVALID_AGENCY_NUMBER });
     }
 
-    if (!validator.agencyCheckNumberIsValid(params.agencyCheckNumber)) {
+    if (!validator.agencyCheckNumberIsValid(bankAccount.agencyCheckNumber)) {
       errors.push({ message: validator.agencyCheckNumberMsgError(), code: BankAccountErrors.INVALID_AGENCY_CHECK_NUMBER });
     }
 
-    if (!validator.accountNumberIsValid(params.accountNumber)) {
+    if (!validator.accountNumberIsValid(bankAccount.accountNumber)) {
       errors.push({ message: validator.accountNumberMsgError(), code: BankAccountErrors.INVALID_ACCOUNT_NUMBER });
     }
 
-    if (!validator.accountCheckNumberIsValid(params.accountCheckNumber)) {
+    if (!validator.accountCheckNumberIsValid(bankAccount.accountCheckNumber)) {
       errors.push({ message: "Dígito da conta corrente inválido", code: BankAccountErrors.INVALID_ACCOUNT_CHECK_NUMBER });
     }
 
-    if (validator.agencyNumberIsValid(params.agencyNumber) && validator.agencyCheckNumberIsValid(params.agencyCheckNumber)) {
-      if (!validator.agencyCheckNumberMatch(params)) {
+    if (validator.agencyNumberIsValid(bankAccount.agencyNumber) && validator.agencyCheckNumberIsValid(bankAccount.agencyCheckNumber)) {
+      if (!validator.agencyCheckNumberMatch(bankAccount)) {
         errors.push({ message: "Dígito da agência não corresponde ao número da agência preenchido", code: BankAccountErrors.AGENCY_CHECK_NUMBER_DONT_MATCH });
       }
     }
 
-    if (validator.accountNumberIsValid(params.accountNumber) && validator.accountCheckNumberIsValid(params.accountCheckNumber)) {
-      if (!validator.accountCheckNumberMatch(params)) {
+    if (validator.accountNumberIsValid(bankAccount.accountNumber) && validator.accountCheckNumberIsValid(bankAccount.accountCheckNumber)) {
+      if (!validator.accountCheckNumberMatch(bankAccount)) {
         errors.push({ message: "Dígito da conta não corresponde ao número da conta/agência preenchido", code: BankAccountErrors.ACCOUNT_CHECK_NUMBER_DONT_MATCH });
       }
     }
 
     if (errors.length) throw new BankAccountValidatorError(errors);
-    return true;
+    return bankAccount;
   }
 
-  private static validator(bankNumber: string): IBankValidator {
+  private static validator(bankNumber: string): CommonBankAccountValidator {
     switch (bankNumber) {
       case "001":
         return new BancoDoBrasilValidator();

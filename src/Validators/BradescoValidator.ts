@@ -4,6 +4,7 @@ import { BradescoCheckNumberCalculator } from "./CheckNumber/BradescoCheckNumber
 
 export default class BradescoValidator extends CommonBankAccountValidator {
   public agencyCheckNumberIsValid(agencyCheckNumber: string) {
+    if (!agencyCheckNumber) return true;
     return agencyCheckNumber.length === this.agencyCheckNumberLength() && super.agencyCheckNumberIsValid(agencyCheckNumber);
   }
 
@@ -12,6 +13,8 @@ export default class BradescoValidator extends CommonBankAccountValidator {
   }
 
   public agencyCheckNumberMatch(bankAccount: IBankAccount) {
+    if (!bankAccount.agencyCheckNumber) return true;
+
     const checkNumberCalculated = BradescoCheckNumberCalculator.calculateAgency(bankAccount.agencyNumber);
     const checkNumberInformed = bankAccount.agencyCheckNumber.toUpperCase();
     if (checkNumberInformed === "0") {

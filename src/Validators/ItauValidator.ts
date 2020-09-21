@@ -4,7 +4,7 @@ import ItauCheckNumberCalculator from "./CheckNumber/ItauCheckNumberCalculator";
 
 export default class ItauValidator extends CommonBankAccountValidator {
   public agencyCheckNumberIsValid(agencyCheckNumber: string): boolean {
-    return agencyCheckNumber === undefined || agencyCheckNumber === "";
+    return agencyCheckNumber === undefined || agencyCheckNumber === "" || agencyCheckNumber === "0";
   }
 
   public accountNumberIsValid(accountNumber: string): boolean {

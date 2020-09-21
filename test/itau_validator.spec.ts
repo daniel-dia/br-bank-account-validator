@@ -35,7 +35,7 @@ describe("ItauValidator", function () {
     });
 
     it("does NOT accept account less than five digits", function () {
-      bankAccount.accountNumber = "1234";
+      bankAccount.accountNumber = "123456";
       expect(() => BankAccountValidator.validate(bankAccount)).toThrowError("A conta corrente deve conter 5 números. Complete com zeros a esquerda se necessário.");
     });
 

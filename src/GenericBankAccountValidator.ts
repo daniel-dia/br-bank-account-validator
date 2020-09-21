@@ -10,6 +10,7 @@ export default class GenericBankAccountValidator extends CommonBankAccountValida
   }
 
   public agencyCheckNumberIsValid(agencyCheckNumber: string): boolean {
+    if (!agencyCheckNumber) agencyCheckNumber = "";
     return /^[a-zA-Z0-9]{0,2}$/.test(agencyCheckNumber);
   }
 
@@ -18,6 +19,7 @@ export default class GenericBankAccountValidator extends CommonBankAccountValida
   }
 
   public accountCheckNumberIsValid(accountCheckNumber: string): boolean {
+    if (!accountCheckNumber) accountCheckNumber = "";
     return /^[a-zA-Z0-9]{0,2}$/.test(accountCheckNumber);
   }
 

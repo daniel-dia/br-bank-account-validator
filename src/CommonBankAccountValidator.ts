@@ -2,6 +2,24 @@ import IBankAccount from "./Interfaces/IBankAccount";
 import IBankValidator from "./Interfaces/IBankValidator";
 
 export default abstract class CommonBankAccountValidator implements IBankValidator {
+  public normalize(bankAccount: IBankAccount) {
+    if (!bankAccount.bankNumber) bankAccount.bankNumber = "";
+    if (!bankAccount.agencyNumber) bankAccount.agencyNumber = "";
+    if (!bankAccount.agencyCheckNumber) bankAccount.agencyCheckNumber = "";
+    if (!bankAccount.accountNumber) bankAccount.accountNumber = "";
+    if (!bankAccount.accountCheckNumber) bankAccount.accountCheckNumber = "";
+
+    if (bankAccount.bankNumber) bankAccount.bankNumber = parseInt(bankAccount.bankNumber).toString();
+    if (bankAccount.agencyNumber) bankAccount.agencyNumber = parseInt(bankAccount.agencyNumber).toString();
+    if (bankAccount.accountNumber) bankAccount.accountNumber = parseInt(bankAccount.accountNumber).toString();
+    if (bankAccount.accountCheckNumber) bankAccount.accountCheckNumber = parseInt(bankAccount.accountCheckNumber).toString();
+
+    while (bankAccount.bankNumber.length < 3) bankAccount.bankNumber = "0" + bankAccount.bankNumber;
+    while (bankAccount.agencyNumber.length < this.agencyNumberLength()) bankAccount.agencyNumber = "0" + bankAccount.agencyNumber;
+    while (bankAccount.accountNumber.length < this.accountNumberLength()) bankAccount.accountNumber = "0" + bankAccount.accountNumber;
+    while (bankAccount.accountCheckNumber.length < 1) bankAccount.accountCheckNumber = "0" + bankAccount.accountCheckNumber;
+  }
+
   public accountCheckNumberMatch(bankAccount: IBankAccount): boolean {
     return true;
   }
@@ -15,6 +33,7 @@ export default abstract class CommonBankAccountValidator implements IBankValidat
   }
 
   public agencyCheckNumberIsValid(agencyCheckNumber: string): boolean {
+    if (!agencyCheckNumber) agencyCheckNumber = "";
     return /^[a-zA-Z0-9]{0,1}$/.test(agencyCheckNumber);
   }
 
@@ -23,6 +42,7 @@ export default abstract class CommonBankAccountValidator implements IBankValidat
   }
 
   public accountCheckNumberIsValid(accountCheckNumber: string): boolean {
+    if (!accountCheckNumber) accountCheckNumber = "";
     return /^[a-zA-Z0-9]{1}$/.test(accountCheckNumber);
   }
 
